@@ -4,8 +4,8 @@ export interface CreateTableUseCase {
 
 export interface CreateTableOptions {
   base: number;
-  limit: number;
-  showConsolePrint: boolean;
+  limit?: number;
+  showConsolePrint?: boolean;
 }
 
 export class CreateTable implements CreateTableUseCase {
@@ -15,11 +15,15 @@ export class CreateTable implements CreateTableUseCase {
      */
   }
 
-  execute({ base, limit, showConsolePrint }: CreateTableOptions): string {
+  execute({ base, limit = 10, showConsolePrint }: CreateTableOptions): string {
     let outputData: string = "";
     for (let i = 1; i <= limit; i++) {
       const result = base * i;
-      outputData += `${base} x ${i} = ${result}\n`;
+      outputData += `${base} x ${i} = ${result}`;
+
+      if (i < limit) {
+        outputData += "\n";
+      }
     }
     return outputData;
   }
